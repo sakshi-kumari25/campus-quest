@@ -1,0 +1,19 @@
+{
+  "name": "campus-quest",
+  "version": "1.0.0",
+  "description": "Gamified college learning and peer support app",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n api,web -c cyan,magenta \"node server/index.js\" \"npm run dev --prefix client\"",
+    "start": "node server/index.js",
+    "build": "npm run build --prefix client"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^10.0.6",
+    "cors": "^2.8.6",
+    "express": "^5.3.0"
+  }
+}
