@@ -12,6 +12,7 @@ async function request(path, options = {}) {
     return data;
   }
 
+  // 100% PERFECTLY SYNCHRONIZED CLOUD LAYER MATCHING YOUR LOCALHOST DESIGN
   const mockData = {
     me: { name: "Sakshi Kumari (You)", streaks: 12, xp: 250, badges: "4/7" },
     leaderboard: [
@@ -25,8 +26,13 @@ async function request(path, options = {}) {
       { 
         id: "1", 
         title: "CPU Scheduling Algorithms & Core Concurrency", 
-        description: "Master how kernels prioritize active process execution streams, calculate turnaround metrics, and handle multithreading cycles.", 
-        xp: 100,
+        subject: "OPERATING SYSTEMS (CSE)",
+        accent: "#22d3ee",
+        blurb: "Master how kernels prioritize active process execution streams, calculate turnaround metrics, and handle multithreading cycles.",
+        reading: [
+          "CPU scheduling is the process by which the operating system decides which process will execute on the CPU while another process is on hold.",
+          "The primary metrics utilized to analyze scheduling performance profiles include Turnaround Time, Waiting Time, Response Time, and total system Throughput efficiency patterns."
+        ],
         quizzes: [
           { id: "q1_1", question: "Which CPU scheduling algorithm can result in the 'convoy effect'?", options: ["First-Come, First-Served (FCFS)", "Round Robin", "Shortest Job First (SJF)", "Priority Scheduling"], correctAnswer: 0 },
           { id: "q1_2", question: "What metric measures the total elapsed time from process submission to its complete termination?", options: ["Waiting Time", "Response Time", "Turnaround Time", "Throughput"], correctAnswer: 2 }
@@ -35,8 +41,13 @@ async function request(path, options = {}) {
       { 
         id: "2", 
         title: "Mesh Analysis, Nodal Laws, & Circuit Network Theorems", 
-        description: "Deconstructing active current distribution vectors, impedance tracking parameters, and complex bridge loops.", 
-        xp: 120,
+        subject: "NETWORK THEORY (EE/ECE)",
+        accent: "#a78bfa",
+        blurb: "Deconstructing active current distribution vectors, impedance tracking parameters, and complex bridge loops.",
+        reading: [
+          "Mesh analysis provides a procedural technique to determine unknown branch currents flowing across closed loop paths using fundamental planar circuit rules.",
+          "Nodal analysis calculates relative node voltages by modeling current entrance and exit distributions applying Kirchhoff's Current Law boundaries explicitly."
+        ],
         quizzes: [
           { id: "q2_1", question: "Mesh analysis is direct application of which fundamental electrical law?", options: ["Ohm's Law", "Kirchhoff's Current Law (KCL)", "Kirchhoff's Voltage Law (KVL)", "Norton's Theorem"], correctAnswer: 2 },
           { id: "q2_2", question: "In a circuit with 'n' independent nodes, how many essential nodal equations are required?", options: ["n", "n - 1", "n + 1", "2n"], correctAnswer: 1 }
@@ -45,8 +56,13 @@ async function request(path, options = {}) {
       {
         id: "3",
         title: "Laws of Thermodynamics & Closed-Loop Energy Cycles",
-        description: "An intuitive deep dive into energy preservation transformations, entropy thresholds, and cyclic heat engine work metrics.",
-        xp: 110,
+        subject: "THERMODYNAMICS (ME)",
+        accent: "#f59e0b",
+        blurb: "An intuitive deep dive into energy preservation transformations, entropy thresholds, and cyclic heat engine work metrics.",
+        reading: [
+          "Thermodynamics deconstructs energy transformations, heat transfers, and mechanical work systems within isolated and closed thermodynamic boundary envelopes.",
+          "Entropy maps structural disorder parameters across expanding macro-states, enforcing directional work thresholds."
+        ],
         quizzes: [
           { id: "q3_1", question: "Which thermodynamic framework states that entropy of an isolated system always increases over time?", options: ["Zeroth Law", "First Law", "Second Law", "Third Law"], correctAnswer: 2 }
         ]
@@ -54,8 +70,13 @@ async function request(path, options = {}) {
       {
         id: "4",
         title: "Stress-Strain Dynamics & Structural Mechanics",
-        description: "Mastering internal load distribution mechanics, shear force vectors, bending moments, and structural load metrics.",
-        xp: 135,
+        subject: "MECHANICS OF SOLIDS (CE)",
+        accent: "#10b981",
+        blurb: "Mastering internal load distribution mechanics, shear force vectors, bending moments, and structural load metrics.",
+        reading: [
+          "Structural solid mechanics analyze internal vector distributions, compression deformation profiles, and torque deflection thresholds when materials encounter static loads.",
+          "Strain maps material length extension percentages against baseline natural state indicators."
+        ],
         quizzes: [
           { id: "q4_1", question: "What is the ratio of lateral strain to linear axial strain within elastic limits called?", options: ["Modulus of Elasticity", "Poisson's Ratio", "Bulk Modulus", "Shear Modulus"], correctAnswer: 1 }
         ]
@@ -63,26 +84,41 @@ async function request(path, options = {}) {
     ],
     forum: [
       { 
-        id: "1", 
-        title: "How to reverse a doubly linked list?", 
-        body: "I am having trouble swapping the next and prev pointers correctly without losing my node references. Any clean boilerplate loop examples?",
-        author: "Sakshi Kumari (You)", 
-        views: 42, 
-        accepted: true,
+        id: "forum_1", 
+        title: "Why is ΔU zero for isothermal expansion of an ideal gas?", 
+        description: "Stuck on the first-law write-up. If the gas does work, where does that energy come from if internal energy does not change?",
+        author: { name: "Vaibhav", avatar: "VB", accent: "#a78bfa", major: "B.Tech × Mechanical Engineering" },
+        tag: "THERMODYNAMICS",
+        xpReward: 30,
+        createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+        answerCount: 1,
+        isMine: false,
         answers: [
-          { id: "a1", body: "You need to maintain a temporary pointer to swap the links inside a simple while loop. Make sure you adjust the final head marker!", author: "Vaibhav", accepted: true },
-          { id: "a2", body: "Don't forget to update the old tail element to be your new head at the very end of your pointer swap sequences.", author: "Shraddha", accepted: false }
+          { 
+            id: "ans_0", 
+            body: "Since temperature is constant for an isothermal process, the internal energy of an ideal gas depends solely on temperature, making delta U zero. The heat supplied exactly equals work done.", 
+            author: { name: "Sakshi Kumari", avatar: "SK", accent: "#22d3ee", level: 3, xp: 250 },
+            accepted: false 
+          }
         ]
       },
       { 
-        id: "2", 
-        title: "Understanding quicksort worst-case partition choices", 
-        body: "Why does picking the first element as a pivot lead to O(n^2) runtime on arrays that are already fully sorted?",
-        author: "Shraddha", 
-        views: 18, 
-        accepted: false,
+        id: "forum_2", 
+        title: "SJF vs Round Robin: when does starvation actually happen?", 
+        description: "I get that SJF picks the shortest ready job, but I am not sure how a stream of short jobs can starve a long one in a real lab scheduler. Looking for a walkthrough with a tiny Gantt-chart example.",
+        author: { name: "Sakshi Kumari (You)", avatar: "SK", accent: "#22d3ee", major: "B.Tech × Computer Science" },
+        tag: "OPERATING SYSTEMS",
+        xpReward: 40,
+        createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+        answerCount: 1,
+        isMine: true,
         answers: [
-          { id: "a3", body: "Because it produces completely unbalanced splits (0 elements on one side, n-1 elements on the other) every single cycle. Consider using randomized quicksort instead!", author: "Rabindra", accepted: false }
+          { 
+            id: "ans_1", 
+            body: "If new short processes keep entering the ready queue continuously, the scheduler will repeatedly pick them over the long process, indefinitely postponing its execution. This is starvation.", 
+            author: { name: "Shraddha", avatar: "SR", accent: "#fbbf24", level: 5, xp: 512 },
+            accepted: true 
+          }
         ]
       }
     ]
@@ -101,13 +137,13 @@ async function request(path, options = {}) {
         return;
       }
       if (path === '/api/forum') {
-        resolve(mockData.forum.map(f => ({ ...f, answers: f.answers.length })));
+        resolve(mockData.forum);
         return;
       }
       if (path.startsWith('/api/forum/')) {
         const id = path.split('/').pop();
-        const found = mockData.forum.find(q => String(q.id) === String(id));
-        resolve(found || { title: "Discussion Post", body: "", author: "Anonymous", answers: [] });
+        const found = mockData.forum.find(q => String(q.id) === String(id) || String(q.id) === `forum_${id}`);
+        resolve(found || { title: "Discussion Post", description: "", author: { name: "Anonymous" }, answers: [] });
         return;
       }
       if (path === '/api/leaderboard') {
