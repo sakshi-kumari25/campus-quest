@@ -10,8 +10,7 @@ import LMSEngine from './components/LMSEngine';
 import QuizBattle from './components/QuizBattle';
 
 export default function App() {
-  // Global Shared App Infrastructure States
-  const [user, setUser] = useState({
+  const [user] = useState({
     name: "Sakshi Kumari (You)",
     xp: 250,
     level: 3,
@@ -42,7 +41,7 @@ export default function App() {
       title: "CPU Scheduling Algorithms & Core Concurrency", 
       subject: "OPERATING SYSTEMS (CSE)",
       accent: "#22d3ee",
-      blurb: "Master how kernels prioritize active process execution streams and turnaround times.",
+      blurb: "Master how kernels prioritize active process execution streams, calculate turnaround metrics, and handle multithreading cycles.",
       reading: [
         "CPU scheduling is the process by which the operating system decides which process will execute on the CPU while another process is on hold.",
         "The primary metrics utilized to analyze scheduling performance profiles include Turnaround Time, Waiting Time, Response Time, and total system Throughput efficiency patterns."
@@ -57,7 +56,7 @@ export default function App() {
       title: "Mesh Analysis, Nodal Laws, & Circuit Network Theorems", 
       subject: "NETWORK THEORY (EE/ECE)",
       accent: "#a78bfa",
-      blurb: "Deconstructing active current distribution vectors and complex network topologies.",
+      blurb: "Deconstructing active current distribution vectors, impedance tracking parameters, and complex bridge loops.",
       reading: [
         "Mesh analysis provides a procedural technique to determine unknown branch currents flowing across closed loop paths using fundamental planar circuit rules.",
         "Nodal analysis calculates relative node voltages by modeling current entrance and exit distributions applying Kirchhoff's Current Law boundaries explicitly."
@@ -66,20 +65,63 @@ export default function App() {
         { id: "q2_1", question: "Mesh analysis is direct application of which fundamental electrical law?", options: ["Ohm's Law", "Kirchhoff's Current Law (KCL)", "Kirchhoff's Voltage Law (KVL)", "Norton's Theorem"], correctAnswer: 2 },
         { id: "q2_2", question: "In a circuit with 'n' independent nodes, how many essential nodal equations are required?", options: ["n", "n - 1", "n + 1", "2n"], correctAnswer: 1 }
       ]
+    },
+    {
+      id: "3",
+      title: "Laws of Thermodynamics & Closed-Loop Energy Cycles",
+      subject: "THERMODYNAMICS (ME)",
+      accent: "#f59e0b",
+      blurb: "An intuitive deep dive into energy preservation transformations, entropy thresholds, and cyclic heat engine work metrics.",
+      reading: [
+        "Thermodynamics deconstructs energy transformations, heat transfers, and mechanical work systems within isolated and closed thermodynamic boundary envelopes.",
+        "Entropy maps structural disorder parameters across expanding macro-states, enforcing directional work thresholds."
+      ],
+      questions: [
+        { id: "q3_1", question: "Which thermodynamic framework states that entropy of an isolated system always increases over time?", options: ["Zeroth Law", "First Law", "Second Law", "Third Law"], correctAnswer: 2 }
+      ]
+    },
+    {
+      id: "4",
+      title: "Stress-Strain Dynamics & Structural Mechanics",
+      subject: "MECHANICS OF SOLIDS (CE)",
+      accent: "#10b981",
+      blurb: "Mastering internal load distribution mechanics, shear force vectors, bending moments, and structural load metrics.",
+      reading: [
+        "Structural solid mechanics analyze internal vector distributions, compression deformation profiles, and torque deflection thresholds when materials encounter static loads.",
+        "Strain maps material length extension percentages against baseline natural state indicators."
+      ],
+      questions: [
+        { id: "q4_1", question: "What is the ratio of lateral strain to linear axial strain within elastic limits called?", options: ["Modulus of Elasticity", "Poisson's Ratio", "Bulk Modulus", "Shear Modulus"], correctAnswer: 1 }
+      ]
     }
   ]);
 
+  // PERFECTLY MATCHING YOUR EXACT CORE DISCUSSION TOPICS MATRIX
   const [forumData] = useState([
     { 
-      id: "1", 
-      title: "How to reverse a doubly linked list?", 
-      body: "I am having trouble swapping the next and prev pointers correctly without losing my node references.",
+      id: "forum_1", 
+      title: "Why is ΔU zero for isothermal expansion of an ideal gas?", 
+      body: "Stuck on the first-law write-up. If the gas does work, where does that energy come from if internal energy does not change?",
+      author: "Vaibhav", 
+      subject: "THERMODYNAMICS",
+      bounty: 30,
+      timeLabel: "2d ago",
+      views: 24, 
+      accepted: false,
+      answers: []
+    },
+    { 
+      id: "forum_2", 
+      title: "SJF vs Round Robin: when does starvation actually happen?", 
+      body: "I get that SJF picks the shortest ready job, but I am not sure how a stream of short jobs can starve a long one in a real lab scheduler. Looking for a walkthrough with a tiny Gantt-chart example.",
       author: "Sakshi Kumari (You)", 
-      views: 42, 
+      subject: "OPERATING SYSTEMS",
+      bounty: 40,
+      timeLabel: "3d ago",
+      views: 57, 
       accepted: true,
       answers: [
-        { id: "a1", body: "You need to maintain a temporary pointer to swap the links inside a simple while loop.", author: "Vaibhav", accepted: true },
-        { id: "a2", body: "Don't forget to update the head pointer at the very end of your swap sequences!", author: "Shraddha", accepted: false }
+        { id: "ans_1", body: "If new short processes keep entering the ready queue continuously, the scheduler will repeatedly pick them over the long process, indefinitely postponing its execution. This is starvation.", author: "Shraddha", accepted: true }
       ]
     }
   ]);
@@ -87,7 +129,6 @@ export default function App() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        {/* Pass downstream state data parameters cleanly through component boundaries */}
         <Route path="/" element={<Dashboard user={user} badgeCatalog={badgeCatalog} leaderboard={leaderboardData} />} />
         <Route path="/learn" element={<Learn chapters={chaptersData} />} />
         <Route path="/learn/:id" element={<Chapter chapters={chaptersData} />} />
