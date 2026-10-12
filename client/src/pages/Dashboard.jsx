@@ -11,7 +11,7 @@ export default function Dashboard() {
   const context = useApp() || {};
   const [board, setBoard] = useState([]);
 
-  // A. Self-contained fallback configuration matching your precise player profile parameters
+  // Safe baseline defaults
   const defaultUser = {
     name: "Sakshi Kumari (You)",
     xp: 250,
@@ -26,13 +26,12 @@ export default function Dashboard() {
     { id: "century-club", name: "Century Club" },
     { id: "scholar", name: "Scholar" },
     { id: "campus-legend", name: "Campus Legend" },
-    { id: "campus-hero", name: "Campus Hero" },
-    { id: "streak-master", name: "Streak Master" }
+    { id: "campus-hero", name: "Campus Hero" }
   ];
 
-  // B. Synchronize context hooks data layers safely
-  const user = context.user || defaultUser;
-  const badgeCatalog = context.badgeCatalog || defaultBadgeCatalog;
+  // Crash-proof check: If context.user exists but lacks a name, force the default fallback
+  const user = (context.user && context.user.name) ? context.user : defaultUser;
+  const badgeCatalog = (context.badgeCatalog && context.badgeCatalog.length > 0) ? context.badgeCatalog : defaultBadgeCatalog;
   const setToast = context.setToast || (() => {});
 
   useEffect(() => {
@@ -41,13 +40,16 @@ export default function Dashboard() {
       .catch((err) => setToast({ type: "error", text: err.message }));
   }, [user, setToast]);
 
-  if (!user) return null;
-  
-  const xpIntoLevel = user.xp % 120;
+  // Safe calculations with optional chaining and fallback numbers
+  const userXp = user.xp || 250;
+  const xpIntoLevel = userXp % 120;
   const pct = Math.round((xpIntoLevel / 120) * 100);
+  const firstName = user.name ? user.name.split(" ")[0] : "Player";
+  const userStreak = user.streak || 0;
+  const userBadges = user.badges || [];
 
   return (
-    <div className="space-y-6 text-zinc-900 dark:text-slate-100 transition-colors duration-300 animate-in">
+    <div className="space-y-6 text-zinc-900 dark:text-slate-100 transition-colors duration-300 animate-in p-6">
       
       {/* GLOBAL HERO CONTAINER */}
       <section className="relative overflow-hidden rounded-[2rem] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 shadow-xs transition-colors duration-300">
@@ -56,7 +58,7 @@ export default function Dashboard() {
         </p>
         
         <h1 className="font-display mt-2 max-w-xl text-4xl leading-tight sm:text-5xl text-zinc-950 dark:text-white">
-          Keep the streak alive, {user.name.split(" ")[0]}.
+          Keep the streak alive, {firstName}.
         </h1>
         
         <p className="mt-3 max-w-lg text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed">
@@ -80,9 +82,9 @@ export default function Dashboard() {
         
         <div className="mt-8">
           <div className="mb-2 flex justify-between text-xs text-zinc-500 dark:text-zinc-400 font-medium">
-            <span>Level {user.level}</span>
+            <span>Level {user.level || 1}</span>
             <span>
-              {xpIntoLevel}/120 XP to {user.level + 1}
+              {xpIntoLevel}/120 XP to {(user.level || 1) + 1}
             </span>
           </div>
           <div className="h-2 overflow-hidden rounded-full bg-zinc-100 dark:bg-black/40 border border-zinc-200/40 dark:border-none">
@@ -96,14 +98,14 @@ export default function Dashboard() {
 
       {/* STAT CARDS MATRIX GRID */}
       <div className="grid gap-4 sm:grid-cols-3">
-        <StatCard icon={Flame} label="Streak" value={`${user.streak} days`} hint="Study a quiz today to keep it" accent="#fb7185" />
-        <StatCard icon={Gem} label="XP points" value={user.xp.toLocaleString()} hint={`Weekly haul on the board`} accent="#22d3ee" />
-        <StatCard icon={Shield} label="Badges" value={`${user.badges.length}/${badgeCatalog.length}`} hint="Unlock the vault below" accent="#fbbf24" />
+        <StatCard icon={Flame} label="Streak" value={`${userStreak} days`} hint="Study a quiz today to keep it" accent="#fb7185" />
+        <StatCard icon={Gem} label="XP points" value={userXp.toLocaleString()} hint={`Weekly haul on the board`} accent="#22d3ee" />
+        <StatCard icon={Shield} label="Badges" value={`${userBadges.length}/${badgeCatalog.length}`} hint="Unlock the vault below" accent="#fbbf24" />
       </div>
 
       {/* SPLIT WORKSPACE SHELVES */}
       <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-        <BadgeShelf catalog={badgeCatalog} earned={user.badges} />
+        <BadgeShelf catalog={badgeCatalog} earned={userBadges} />
         <Leaderboard rows={board} />
       </div>
 
