@@ -2,11 +2,11 @@ import { useState } from "react";
 import { X } from "lucide-react";
 
 const TAGS = [
-  "Calculus I",
-  "Data Structures",
-  "Organic Chemistry",
-  "Intro Psych",
-  "Microeconomics",
+  "Operating Systems",
+  "Thermodynamics",
+  "Network Theory",
+  "Mechanics of Solids",
+  "DBMS",
   "Other",
 ];
 

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
+import { useApp } from '../context/AppContext';
+import Celebration from './Celebration';
 import {
   LayoutDashboard,
   GraduationCap,
@@ -25,6 +27,7 @@ const links = [
 
 export default function Layout() {
   const location = useLocation();
+  const { celebration, setCelebration, toast } = useApp();
 
   const [darkMode, setDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
@@ -320,6 +323,21 @@ export default function Layout() {
         <Outlet />
       </main>
 
+      {toast && (
+        <div
+          className={`fixed bottom-6 right-6 z-[60] max-w-sm rounded-2xl border px-4 py-3 text-sm shadow-xl ${
+            toast.type === "error"
+              ? "border-rose-400/30 bg-rose-950 text-rose-100"
+              : "border-emerald-400/30 bg-emerald-950 text-emerald-100"
+          }`}
+        >
+          {toast.text}
+        </div>
+      )}
+
+      {celebration && (
+        <Celebration data={celebration} onClose={() => setCelebration(null)} />
+      )}
     </div>
   );
 }

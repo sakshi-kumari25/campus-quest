@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Sparkles } from 'lucide-react';
-import PomodoroTimer from './PomodoroTimer';
+import PomodoroTimer from './pomodoroTimer';
 import OsSimulator from './OsSimulator';
 import ThermoCalculator from './ThermoCalculator';
 import LabDiscussion from './LabDiscussion';

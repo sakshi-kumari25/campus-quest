@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Award, Flame, TrendingUp, X, Trophy } from 'lucide-react';
 
-export default function Leaderboard({ users }) {
+export default function Leaderboard({ rows, users }) {
   const [selectedProfile, setSelectedProfile] = useState(null);
 
   const localDefaultPeers = [
@@ -63,10 +63,11 @@ export default function Leaderboard({ users }) {
   ];
 
   const activeUsersList =
-    users && users.length > 0 ? users : localDefaultPeers;
+    (rows && rows.length > 0 ? rows : null) ||
+    (users && users.length > 0 ? users : localDefaultPeers);
 
   const rankedUsers = [...activeUsersList].sort(
-    (a, b) => b.xp - a.xp
+    (a, b) => (b.weeklyXp || 0) - (a.weeklyXp || 0) || b.xp - a.xp
   );
 
   const badgeNames = {
