@@ -198,5 +198,40 @@ function createInitialState() {
         ],
       },
     ],
+    forum: [
+      {
+        id: "q_os_sjf",
+        authorId: "u1",
+        title: "SJF vs Round Robin: when does starvation actually happen?",
+        description:
+          "I get that SJF picks the shortest ready job, but I am not sure how a stream of short jobs can starve a long one in a real lab scheduler. Looking for a walkthrough with a tiny Gantt-chart example.",
+        tag: "Operating Systems",
+        xpReward: 40,
+        createdAt: "2026-10-09T18:12:00.000Z",
+        acceptedAnswerId: null,
+        answers: [
+          {
+            id: "a_vaibhav_sjf",
+            authorId: "u2",
+            body: "Imagine jobs arriving every tick with burst 2, while a job of burst 20 is already waiting. SJF keeps choosing the newcomers, so the long job never reaches the CPU. Round Robin would still give it a quantum. Draw a Gantt with arrivals at t=0 (P-long=20), t=1 (P2=2), t=3 (P3=2) and you will see P-long idle forever under pure SJF.",
+            createdAt: "2026-10-09T19:04:00.000Z",
+          },
+        ],
+      },
+      {
+        id: "q_thermo_entropy",
+        authorId: "u2",
+        title: "Why is ΔU zero for isothermal expansion of an ideal gas?",
+        description:
+          "Stuck on the first-law write-up. If the gas does work, where does that energy come from if internal energy does not change?",
+        tag: "Thermodynamics",
+        xpReward: 30,
+        createdAt: "2026-10-10T08:40:00.000Z",
+        acceptedAnswerId: null,
+        answers: [],
+      },
+    ],
   };
 }
+
+module.exports = { createInitialState, BADGE_CATALOG };
